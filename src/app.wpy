@@ -1,0 +1,59 @@
+<style lang="less"></style>
+
+<script>
+import wepy from 'wepy'
+import 'wepy-async-function'
+
+export default class extends wepy.app {
+  config = {
+    pages: [
+      'pages/personal',
+      'pages/discuss'
+    ],
+    window: {
+      backgroundTextStyle: 'light',
+      navigationBarBackgroundColor: '#fff',
+      navigationBarTitleText: 'Demo',
+      navigationBarTextStyle: 'black'
+    },
+    debug: true,
+    tabBar: {
+      color: '#959595',
+      selectedColor: '#f4ea2a',
+      backgroundColor: '#fff',
+      list: [
+        {
+          pagePath: 'pages/discuss',
+          text: '交流区',
+          iconPath: 'imgs/discuss.png',
+          selectedIconPath: 'imgs/discuss-active.png'
+        },
+        {
+          pagePath: 'pages/personal',
+          text: '个人中心',
+          iconPath: 'imgs/personal.png',
+          selectedIconPath: 'imgs/personal-active.png'
+        }
+      ]
+    }
+  }
+  constructor () {
+    super()
+    this.use('requestfix')
+  }
+  onLaunch() {
+    this.testAsync()
+  }
+  sleep (s) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('promise resolved')
+      }, s * 1000)
+    })
+  }
+  async testAsync () {
+    const data = await this.sleep(3)
+    console.log(data)
+  }
+}
+</script>
