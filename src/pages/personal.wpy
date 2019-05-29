@@ -1,7 +1,7 @@
 <template>
   <view class="body">
     personal
-    <i-toast id="toast" />
+    <van-toast id="van-toast" />
   </view>
 </template>
 <script>
@@ -9,7 +9,7 @@ import wepy from 'wepy'
 export default class extends wepy.page {
   config = {
     usingComponents: {
-      'i-toast': '../libs/iview/toast/index'
+      'van-toast': '../libs/vant/toast/index'
     }
   }
 }

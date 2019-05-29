@@ -1,4 +1,4 @@
-import AV from './libs/av-weapp-min-3.10.0'
+import AV from 'leancloud-storage'
 import {
   APP_ID,
   APP_KEY

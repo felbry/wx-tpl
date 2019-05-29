@@ -1,6 +1,16 @@
 import { AV } from '@/storage'
 // import { PAGE_SIZE } from '@/config'
 
+function errHandle (fn) {
+  return function (...args) {
+    return Promise.resolve(fn(...args)).catch(err => ({
+      code: -1,
+      data: {
+        msg: err.toString()
+      }
+    }))
+  }
+}
 // const _PAGINATION = (query, page) => {
 //   const PAGE = page || 1
 //   query.limit(PAGE_SIZE)
@@ -16,16 +26,10 @@ const CODE_0 = (data = {}) => ({
     ? JSON.parse(JSON.stringify(data))
     : data
 })
-// const CODE_1 = (msg = '已存在') => ({
-//   code: 1,
-//   data: {
-//     msg
-//   }
-// })
 
 export default {
   '/my/community': {
-    async get () {
+    get: errHandle(async function () {
       const USER = await AV.User.current().fetch()
       const CID = USER.get('community')[0]
       if (CID) {
@@ -40,6 +44,6 @@ export default {
       } else {
         return Promise.resolve(CODE_0())
       }
-    }
+    })
   }
 }
